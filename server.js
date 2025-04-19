@@ -1,9 +1,12 @@
-const express = require("express");
+const express = require('express');
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 
-app.use(express.static("public"));
+// Tu peux directement servir le fichier HTML
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html"); // Charge ton index.html depuis la racine du projet
+});
 
 io.on("connection", (socket) => {
   console.log("✅ Un utilisateur s’est connecté");
@@ -19,5 +22,5 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
-  console.log(`✅ Serveur lancé sur le port ${PORT}`);
+  console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });
