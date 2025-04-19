@@ -24,3 +24,11 @@ const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });
+
+app.get("/style.css", (req, res) => {
+  res.sendFile(__dirname + "/style.css");
+});
+
+app.get("/script.js", (req, res) => {
+  res.sendFile(__dirname + "/script.js");
+});
