@@ -3,9 +3,12 @@ const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 
-// Tu peux directement servir le fichier HTML
+// Serveur de fichiers statiques (si tu utilises un dossier comme "public" ou autre)
+app.use(express.static(__dirname));  // Cela va servir tous les fichiers depuis la racine du projet
+
+// Ou servir juste index.html
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html"); // Charge ton index.html depuis la racine du projet
+  res.sendFile(__dirname + "/index.html");
 });
 
 io.on("connection", (socket) => {
@@ -23,10 +26,6 @@ io.on("connection", (socket) => {
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
   console.log(`Serveur lancé sur http://localhost:${PORT}`);
-});
-
-app.get("/style.css", (req, res) => {
-  res.sendFile(__dirname + "/style.css");
 });
 
 app.get("/script.js", (req, res) => {
